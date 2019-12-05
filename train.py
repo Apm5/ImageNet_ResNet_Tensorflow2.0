@@ -4,11 +4,12 @@ import config as c
 from tqdm import tqdm
 from tensorflow.keras import optimizers
 from utils.data_utils import train_iterator
-from utils.eval_utils import cross_entropy_batch, correct_num_batch, l2_loss, accuracy
+from utils.eval_utils import cross_entropy_batch, correct_num_batch, l2_loss
 from model.ResNet import ResNet
+from model.ResNet_v2 import ResNet_v2
 from test import test
 from warm_up import warm_up
-os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 @tf.function
 def train_step(model, images, labels, optimizer):
@@ -51,7 +52,8 @@ if __name__ == '__main__':
     train_data_iterator = train_iterator()
 
     # get model
-    model = ResNet(50)
+    # model = ResNet(50)
+    model = ResNet_v2(50)
 
     # show
     model.build(input_shape=(None,) + c.input_shape)

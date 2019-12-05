@@ -7,7 +7,7 @@ from utils.data_utils import train_iterator
 from utils.eval_utils import cross_entropy_batch, correct_num_batch, l2_loss
 from model.ResNet import ResNet
 from test import test
-os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 @tf.function
 def train_step(model, images, labels, optimizer):
