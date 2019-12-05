@@ -10,13 +10,26 @@ import config as c
  width, x
 """
 
-def random_scale(image, target_size=None):
+def random_size(image, target_size=None):
     height, width, _ = np.shape(image)
-    short_side = np.minimum(height, width)
     if target_size is None:
+        # for test
+        # target size is fixed
         target_size = np.random.randint(*c.short_side_scale)
-    ratio = target_size / short_side
-    resize_shape = (int(width * ratio), int(height * ratio))  # width and height in cv2 are opposite to np.shape()
+    if height < width:
+        size_ratio = target_size / height
+    else:
+        size_ratio = target_size / width
+    resize_shape = (int(width * size_ratio), int(height * size_ratio))  # width and height in cv2 are opposite to np.shape()
+    return cv2.resize(image, resize_shape)
+
+def random_aspect(image):
+    height, width, _ = np.shape(image)
+    aspect_ratio = np.random.uniform(*c.aspect_ratio_scale)
+    if height < width:
+        resize_shape = (int(width * aspect_ratio), height)
+    else:
+        resize_shape = (width, int(height * aspect_ratio))
     return cv2.resize(image, resize_shape)
 
 def random_crop(image):

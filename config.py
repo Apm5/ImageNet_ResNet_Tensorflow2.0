@@ -1,6 +1,6 @@
 # Training config
 category_num = 1000
-batch_size = 112
+batch_size = 128
 input_shape = (224, 224, 3)
 weight_decay = 1e-4
 label_smoothing = 0.1
@@ -15,9 +15,9 @@ initial_learning_rate = 0.05
 minimum_leraning_rate = 0.0001
 epoch_num = 50
 
-log_file = 'result/log/ResNet_50.txt'
+log_file = 'result/log/ResNet_50_v2.txt'
 load_weight_file = None
-save_weight_file = 'result/weight/ResNet_50.h5'
+save_weight_file = 'result/weight/ResNet_50_v2.h5'
 
 # Dataset config
 train_list_path = 'data/train_label.txt'
@@ -28,7 +28,8 @@ test_data_path = '/home1/dataset/ImageNet/ILSVRC2012_img_val'
 # Augmentation config
 # From 'Bag of tricks for image classification with convolutional neural networks'
 # Or https://github.com/dmlc/gluon-cv
-short_side_scale = (256, 320)
+short_side_scale = (256, 384)
+aspect_ratio_scale = (0.8, 1.25)
 hue_delta = (-36, 36)
 saturation_scale = (0.6, 1.4)
 brightness_scale = (0.6, 1.4)

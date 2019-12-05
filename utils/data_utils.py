@@ -21,13 +21,14 @@ def load_image(image_path, label, augment=False, crop_10=False):
     image = cv2.imread(image_path.numpy().decode()).astype(np.float32)
 
     if augment:
-        image = random_scale(image)
+        image = random_aspect(image)
+        image = random_size(image)
         image = random_crop(image)
         image = random_flip(image)
         image = random_hsv(image)
         image = random_pca(image)
     else:
-        image = random_scale(image, target_size=256)
+        image = random_size(image, target_size=256)
         if crop_10:
             image = test_10_crop(image)
         else:
