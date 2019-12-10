@@ -5,6 +5,7 @@ from tqdm import tqdm
 from utils.data_utils import test_iterator
 from utils.eval_utils import cross_entropy_batch, correct_num_batch, l2_loss
 from model.ResNet import ResNet
+from model.ResNet_v2 import ResNet_v2
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 @tf.function
@@ -38,7 +39,8 @@ if __name__ == '__main__':
     tf.config.experimental.set_memory_growth(device=physical_devices[0], enable=True)
 
     # get model
-    model = ResNet(50)
+    # model = ResNet(50)
+    model = ResNet_v2(50)
 
     # show
     model.build(input_shape=(None,) + c.input_shape)

@@ -1,6 +1,5 @@
 import config as c
 import tensorflow as tf
-from tensorflow.keras import models
 from tensorflow.keras.layers import Conv2D, GlobalAvgPool2D, BatchNormalization, Dense
 
 
@@ -82,7 +81,7 @@ class BottleneckBlock(tf.keras.layers.Layer):
         return net
 
 
-class ResNet(models.Model):
+class ResNet(tf.keras.models.Model):
     def __init__(self, layer_num, **kwargs):
         super(ResNet, self).__init__(**kwargs)
         if c.block_type[layer_num] == 'basic block':
@@ -107,7 +106,7 @@ class ResNet(models.Model):
                 self.block_collector.append(self.block(f, name='conv{}_{}'.format(layer_index, block_index)))
 
         self.global_average_pooling = GlobalAvgPool2D()
-        self.fc = Dense(1000, name='fully_connected', activation='softmax', use_bias=False)
+        self.fc = Dense(c.category_num, name='fully_connected', activation='softmax', use_bias=False)
 
     def call(self, inputs, training):
         net = self.conv0(inputs)
@@ -127,3 +126,10 @@ class ResNet(models.Model):
         net = self.fc(net)
         print('fully connected', net.shape)
         return net
+
+if __name__ == '__main__':
+    model = ResNet(18)
+    model.build((None,) + c.input_shape)
+    model.summary()
+
+    model.save_weights('ResNet_18.h5', save_format='h5')

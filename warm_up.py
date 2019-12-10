@@ -21,10 +21,10 @@ def train_step(model, images, labels, optimizer):
     return ce, prediction
 
 def warm_up(model, data_iterator, log_file):
-    learning_rate_schedules = optimizers.schedules.PolynomialDecay(initial_learning_rate=c.minimum_leraning_rate,
+    learning_rate_schedules = optimizers.schedules.PolynomialDecay(initial_learning_rate=c.minimum_learning_rate,
                                                                    decay_steps=c.warm_iterations,
                                                                    end_learning_rate=c.initial_learning_rate)
-    optimizer = optimizers.SGD(learning_rate=learning_rate_schedules, momentum=0.9)
+    optimizer = optimizers.SGD(learning_rate=learning_rate_schedules, momentum=0.9, nesterov=True)
 
     sum_ce = 0
     sum_correct_num = 0

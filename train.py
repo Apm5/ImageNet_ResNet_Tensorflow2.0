@@ -73,7 +73,7 @@ if __name__ == '__main__':
 
     learning_rate_schedules = tf.keras.experimental.CosineDecay(initial_learning_rate=c.initial_learning_rate,
                                                                 decay_steps=c.epoch_num * c.iterations_per_epoch,
-                                                                alpha=c.minimum_leraning_rate)
+                                                                alpha=c.minimum_learning_rate)
     optimizer = optimizers.SGD(learning_rate=learning_rate_schedules, momentum=0.9, nesterov=True)
     for epoch_num in range(c.epoch_num):
         with open(c.log_file, 'a') as f:
