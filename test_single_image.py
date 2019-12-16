@@ -37,3 +37,4 @@ if __name__ == '__main__':
         print('image: {}\nclassification result:{}\nconfidence:{:.4f}'.format(image_path,
                                                                               label_to_content[str(label)],
                                                                               prediction[0, label]))
+        print('-' * 40)
