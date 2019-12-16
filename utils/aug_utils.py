@@ -64,7 +64,7 @@ def random_pca(image):
 
 def normalize(image):
     for i in range(3):
-        image[:, :, i] = (image[:, :, i] - c.mean[i]) / c.std[i]
+        image[..., i] = (image[..., i] - c.mean[i]) / c.std[i]
     return image
 
 def center_crop(image):

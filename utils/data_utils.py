@@ -1,5 +1,7 @@
 import tensorflow as tf
+import numpy as np
 import os
+import cv2
 from utils.aug_utils import *
 
 def load_list(list_path, image_root_path):
@@ -71,9 +73,10 @@ def test_10_crop_iterator(list_path=c.test_list_path):
 
 if __name__ == '__main__':
     # Annotate the 'normalize' function for visualization
-    it = train_iterator()
-    # it = test_10_crop_iterator()
+    # it = train_iterator()
+    it = test_10_crop_iterator('../data/validation_label.txt')
     images, labels = it.next()
+    # print(np.shape(images), np.shape(labels))
     for i in range(10):
         print(np.where(labels[i].numpy() != 0))
         cv2.imshow('show', images[i].numpy().astype(np.uint8))
