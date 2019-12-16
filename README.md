@@ -63,7 +63,7 @@ Set model in `train.py`, which defaults to ResNet-50 v2.
 `python3 train.py`
 
 My experimental environment is 
-* i7-6859K @ 3.6GHz
+* i7-6850K @ 3.6GHz
 * TITAN Xp, 12GB
 
 For ResNet-50, average training speed is 2 iterations per second. So it will take about 3 days to complete the training, which is 50 epochs.
@@ -99,7 +99,7 @@ confidence:0.7444
 
 ## More
 
-More tutorial about tensorflow 2.0: [https://github.com/Apm5/tensorflow_2.0_tutorial](https://github.com/Apm5/tensorflow_2.0_tutorial)
+Basic tutorial for tensorflow 2.0: [https://github.com/Apm5/tensorflow_2.0_tutorial](https://github.com/Apm5/tensorflow_2.0_tutorial)
 
 For chinese friends: 我有一个[知乎专栏](https://zhuanlan.zhihu.com/c_1183794276223385600)，里面有中文版本的教程
 
