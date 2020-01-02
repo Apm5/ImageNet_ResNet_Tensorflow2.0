@@ -9,6 +9,12 @@
 
 Meet the accuracy in [Deep Residual Learning for Image Recognition](http://openaccess.thecvf.com/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf).
 
+The weights is provided.
+
+Link: [https://pan.baidu.com/s/1nwvkt3Ei5Hp5Pis35cBSmA](https://pan.baidu.com/s/1nwvkt3Ei5Hp5Pis35cBSmA)
+
+Code: y4wo
+
 ## Requirements
 Python version: 3.5.1
 
@@ -26,7 +32,7 @@ Or you can contact me for a download link of Baidu Netdisk.
 
 If you want to train your own data, please modify all the files in data/ and config.py.
 
-## Training
+## Usage
 
 #### Prepare
 
@@ -70,7 +76,7 @@ For ResNet-50, average training speed is 2 iterations per second. So it will tak
 
 If `Allocator (GPU_0_bfc) ran out of memory trying to allocate...`, please reduce the batch size.
 
-## Test
+#### Test
 
 Set the `load_weight_file` in config.py.
 
