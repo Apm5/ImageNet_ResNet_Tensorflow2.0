@@ -8,8 +8,22 @@ from utils.eval_utils import cross_entropy_batch, correct_num_batch, l2_loss
 from model.ResNet import ResNet
 from model.ResNet_v2 import ResNet_v2
 from test import test
-from warm_up import warm_up
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+
+class CosineDecayWithWarmUP(tf.keras.experimental.CosineDecay):
+    def __init__(self, initial_learning_rate, decay_steps, alpha=0.0, warm_up_step=0, name=None):
+        self.warm_up_step = warm_up_step
+        super(CosineDecayWithWarmUP, self).__init__(initial_learning_rate=initial_learning_rate,
+                                                    decay_steps=decay_steps,
+                                                    alpha=alpha,
+                                                    name=name)
+
+    @tf.function
+    def __call__(self, step):
+        if step <= self.warm_up_step:
+            return step / self.warm_up_step * self.initial_learning_rate
+        else:
+            return super(CosineDecayWithWarmUP, self).__call__(step - self.warm_up_step)
 
 @tf.function
 def train_step(model, images, labels, optimizer):
@@ -66,15 +80,11 @@ if __name__ == '__main__':
         print('pretrain weight l2 loss:{:.4f}'.format(l2_loss(model)))
 
     # train
-    with open(c.log_file, 'a') as f:
-        warm_up(model, train_data_iterator, f)
-        test(model, f)
-    model.save_weights(c.save_weight_file, save_format='h5')
-
-    learning_rate_schedules = tf.keras.experimental.CosineDecay(initial_learning_rate=c.initial_learning_rate,
-                                                                decay_steps=c.epoch_num * c.iterations_per_epoch,
-                                                                alpha=c.minimum_learning_rate)
-    optimizer = optimizers.SGD(learning_rate=learning_rate_schedules, momentum=0.9, nesterov=True)
+    learning_rate_schedules = CosineDecayWithWarmUP(initial_learning_rate=c.initial_learning_rate,
+                                                    decay_steps=c.epoch_num * c.iterations_per_epoch - c.warm_iterations,
+                                                    alpha=c.minimum_learning_rate,
+                                                    warm_up_step=c.warm_iterations)
+    optimizer = optimizers.SGD(learning_rate=learning_rate_schedules, momentum=0.9)
     for epoch_num in range(c.epoch_num):
         with open(c.log_file, 'a') as f:
             f.write('epoch:{}\n'.format(epoch_num))
