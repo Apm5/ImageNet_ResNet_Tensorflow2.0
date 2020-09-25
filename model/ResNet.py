@@ -24,7 +24,6 @@ class BasicBlock(tf.keras.layers.Layer):
 
         net = self.conv_1(net)
         net = self.bn_1(net, training=training)
-        net = tf.nn.relu(net)
 
         if self.strides != (1, 1):
             shortcut = tf.nn.avg_pool2d(inputs, ksize=(2, 2), strides=(2, 2), padding='SAME')
